@@ -1,0 +1,31 @@
+version: "3.1"
+
+secrets:
+  test_secret:
+    file: ./secret.txt
+
+services:
+  web:
+    build:
+      dockerfile: apache.dockerfile
+      context: .docker
+    volumes:
+      - "${PROJECT_PATH}:/app"
+    ports:
+      - 3000:80
+    secrets:
+      - test_secret
+    environment:
+      - TEST_SECRET=test_secret
+    env_file:
+      - .env
+
+  # o bloco de baixo roda o banco de dados caso seja necessário rodar localmente.
+
+  db:
+    image: mcr.microsoft.com/mssql/server
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=some_secure_password
+    ports:
+      - 1433:1433
