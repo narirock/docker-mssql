@@ -10,7 +10,7 @@ services:
       dockerfile: apache.dockerfile
       context: .docker
     volumes:
-      - "${PROJECT_PATH}:/app"
+      - "../ceat:/app"
     ports:
       - 3000:80
     secrets:
@@ -22,10 +22,10 @@ services:
 
   # o bloco de baixo roda o banco de dados caso seja necessário rodar localmente.
 
-  db:
-    image: mcr.microsoft.com/mssql/server
-    environment:
-      - ACCEPT_EULA=Y
-      - SA_PASSWORD=some_secure_password
-    ports:
-      - 1433:1433
+  # db:
+  #   image: mcr.microsoft.com/mssql/server
+  #   environment:
+  #     - ACCEPT_EULA=Y
+  #     - SA_PASSWORD=some_secure_password
+  #   ports:
+  #     - 1433:1433
